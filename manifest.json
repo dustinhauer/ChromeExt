@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "LinkedIn Profile Viewer",
+  "version": "1.6",
+  "description": "Auto-view, like LinkedIn profiles (2nd connections only), and send connection requests to select users.",
+  "permissions": ["activeTab", "scripting", "storage", "tabs"],
+  "host_permissions": ["*://*.linkedin.com/*"],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.linkedin.com/in/*"],
+      "js": ["profile.js"]
+    },
+    {
+      "matches": [
+        "*://*.linkedin.com/search/results/people/*",
+        "*://*.linkedin.com/feed/update/*"
+      ],
+      "js": ["content.js"]
+    }
+  ]
+}
